@@ -1,10 +1,10 @@
 #! /bin/bash
 # On root run the following command
-sudo apt update -y
-sudo apt upgrade -y
-sudo apt install default-jdk -y
-sudo java -version
-sudo apt install maven -y
+apt update -y
+apt upgrade -y
+apt install default-jdk -y
+java -version
+apt install maven -y
 sudo wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.7/bin/apache-tomcat-10.1.7.tar.gz
 sudo tar -xvzf apache-tomcat-10.1.7.tar.gz
 sudo rm -rf apache-tomcat-10.1.7.tar.gz
