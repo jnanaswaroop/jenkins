@@ -1,0 +1,116 @@
+============================================
+pipeline {
+    agent none
+    stages {
+        stage ('build') {
+            agent { label 'slave1' }
+            steps {
+                sh "ls"
+                sh "pwd"
+                sh "whoami"
+            }
+        }
+        stage ('deploy') {
+            agent { label 'master' }
+            steps {
+                sh "ls"
+                sh "pwd"
+                sh "hostname -i"
+            }
+        }
+    }
+}
+=================================================
+pipeline {
+    agent any
+    stages {
+        stage ('build') {
+            steps {
+                sh 'pwd'
+                sh 'mvn package'
+            }
+        }
+        stage ('deploy') {
+            steps {
+                sh 'pwd'
+                sh 'mvn deploy'
+            }
+        }
+    }
+}
+=================================================
+pipeline {
+    agent { label 'slave1' }
+    stages {
+        stage ('build') {
+            steps {
+                sh 'pwd'
+                sh 'whoami'
+                sh 'mvn package'
+            }
+        }
+        stage ('deploy') {
+            steps {
+                sh 'pwd'
+                sh 'hostname -i'
+                sh 'sudo cp -r /home/jenkins/workspace/my-declarative-pipeline-333/target/hello-world-war-null.war /opt/tomcat/webapps/'
+                sh 'sudo sh /opt/tomcat/bin/shutdown.sh'
+                sh 'sleep 2'
+                sh 'sudo sh /opt/tomcat/bin/startup.sh'
+            }
+        }
+    }
+}
+=================================================
+pipeline {
+    agent none
+    stages {
+        stage ('build') {
+            agent { label 'slave1' }
+            steps {
+                sh 'pwd'
+                sh 'whoami'
+                sh 'mvn package'
+                sh 'scp -r /home/jenkins/workspace/my-declarative-pipeline-777/target/hello-world-war-null.war jenkins2@172.31.5.213:/opt/tomcat/webapps/'
+            }
+        }
+        stage ('deploy') {
+            agent { label 'slave2' }
+            steps {
+                sh 'pwd'
+                sh 'hostname -i'
+                sh 'sudo sh /opt/tomcat/bin/shutdown.sh'
+                sh 'sleep 2'
+                sh 'sudo sh /opt/tomcat/bin/startup.sh'
+            }
+        }
+    }
+}
+=================================================
+pipeline {
+    agent {label 'slave1'}
+    stages {
+        stage('my Build') {
+            steps {
+                sh 'docker build -t tomcat_build:${BUILD_NUMBER} .' 
+            }
+        }  
+        stage('publish stage') {
+            steps {
+                sh "echo ${BUILD_NUMBER}"
+                sh 'docker login -u jnanaswaroop -p kavyaswaroop'
+                sh 'docker tag tomcat_build:${BUILD_NUMBER} jnanaswaroop/jnanaswarooptomcat:${BUILD_NUMBER}'
+                sh 'docker push jnanaswaroop/jnanaswarooptomcat:${BUILD_NUMBER}'
+            }
+        } 
+        stage( 'my deploy' ) {
+        agent {label 'slave2'} 
+            steps {
+               sh 'docker pull jnanaswaroop/jnanaswarooptomcat:${BUILD_NUMBER}'
+               sh 'docker rm -f mytomcat'
+               sh 'docker run -d -p 8080:8080 --name mytomcat jnanaswaroop/jnanaswarooptomcat:${BUILD_NUMBER}'
+            }
+        }    
+    } 
+}
+===============================================
