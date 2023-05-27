@@ -6,9 +6,9 @@ sudo apt install default-jdk -y
 sudo java -version
 sudo apt install maven -y
 sudo wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.9/bin/apache-tomcat-10.1.9.tar.gz
-sudo tar -xvzf apache-tomcat-10.1.7.tar.gz
-sudo rm -rf apache-tomcat-10.1.7.tar.gz
-sudo mv apache-tomcat-10.1.7 /opt/tomcat
+sudo tar -xvzf apache-tomcat-10.1.9.tar.gz
+sudo rm -rf apache-tomcat-10.1.9.tar.gz
+sudo mv apache-tomcat-10.1.9 /opt/tomcat
 sudo sed -i s/8080/9090/g /opt/tomcat/conf/server.xml
 sudo sh /opt/tomcat/bin/shutdown.sh
 sleep 2
