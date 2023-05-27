@@ -5,7 +5,7 @@ apt upgrade -y
 apt install default-jdk -y
 java -version
 apt install maven -y
-wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.7/bin/apache-tomcat-10.1.7.tar.gz
+wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.9/bin/apache-tomcat-10.1.9.tar.gz
 tar -xvzf apache-tomcat-10.1.7.tar.gz
 rm -rf apache-tomcat-10.1.7.tar.gz
 mv apache-tomcat-10.1.7 /home/ubuntu/tomcat
