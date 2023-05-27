@@ -14,7 +14,7 @@ sh /home/ubuntu/tomcat/bin/shutdown.sh
 sleep 2
 sh /home/ubuntu/tomcat/bin/startup.sh
 rm -rf conf-and-webapps-file
-git clone https://github.com/syedwaliuddin/conf-and-webapps-file.git
+git clone https://github.com/jnanaswaroopkr/conf-and-webapps-file.git
 rm -rf /home/ubuntu/tomcat/conf/tomcat-users.xml
 cp conf-and-webapps-file/tomcat-users.xml /home/ubuntu/tomcat/conf/
 sh /home/ubuntu/tomcat/bin/shutdown.sh
