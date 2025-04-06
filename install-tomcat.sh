@@ -1,3 +1,5 @@
+#sudo apt install tomcat10 -y
+
 #! /bin/bash
 # On root run the following command
 apt update -y
